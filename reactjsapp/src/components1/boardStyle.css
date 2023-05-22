@@ -1,0 +1,24 @@
+.tbl_style {
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: LavenderBlush;
+  border: 1px solid LightPink;
+}
+
+td,
+tr,
+th {
+  padding: 10px 30px;
+}
+
+.evenStyle {
+  background-color: HoneyDew;
+}
+
+.oddStyle {
+  background-color: LightYellow;
+}
+

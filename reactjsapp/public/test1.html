@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>JavaScript 연습!</h1>
+    <button id="btn1">버튼1</button>
+    <div id="here">여기</div>
+
+    <script type="module" src="./go.js"></script>
+    <script type="module" src="./go2.js"></script>
+
+    <script>
+      // 1. var, let, const
+      /*
+        var
+        - function 밖에서 선언한다면 global 변수
+        - function 안에서 선언한다면 funciton 변수
+        - block 안에서 선언한다면 block 변수
+        let
+        - block 변수
+        const
+        - 상수
+        */
+      // 2. 호이스팅: var 선언자 특성,
+      // 3. class: field + method + 생성자 method, object를 만들기 위한 틀
+      class Shape {
+        constructor(name) {
+          this.model = name; //생성시마다 메서드 추가
+          this.draw = function () {
+            console.log(this.model + "~~그리다....");
+          };
+        }
+        // 프로토타입 메서드
+        display() {
+          // class 내부에 함수를 만들 때는 function 예약어 X
+          return "나는 " + this.model;
+        }
+      }
+      const myshape = new Shape("도형");
+      console.log(myshape);
+      console.log(myshape.model);
+      myshape.draw();
+      console.log(myshape.display());
+
+      // 4. 상속
+      class Rectangle extends Shape {
+        constructor(name, width, height) {
+          super(name);
+          this.width = width;
+          this.height = height;
+        }
+        show() {
+          return (
+            this.display() +
+            " ,width= " +
+            this.width +
+            " ,height=" +
+            this.height
+          );
+        }
+      }
+      const myshape2 = new Rectangle("사각형", 10, 20);
+      console.log(myshape2.show());
+
+      // 5. 화살표 함수
+      (function () {
+        console.log("익명함수 실행 - 즉시 실행 함수!!!!!!!");
+      })();
+      const f1 = function () {
+        console.log(
+          "익명함수 변수에 할당합니다.(리터럴함수: 함수를 변수에 넣은 것)"
+        );
+      };
+      const f2 = () => {
+        console.log("화살표함수로 변경합니다.");
+      };
+      const f3 = (val) => "화살표함수 파라메터와 리턴";
+
+      f1();
+      f2();
+      const result = f3();
+      console.log(result);
+
+      // 6. this
+      class Header {
+        constructor() {
+          this.color = "Red";
+        }
+        changeColor = function (e) {
+          const hereObj = document.getElementById("here");
+          if (this == window) hereObj.style.backgroundColor = "orange";
+          else if (this.nodeName == "BUTTON")
+            hereObj.style.backgroundColor = "lightgreen";
+          hereObj.innerHTML += this;
+          console.dir(this);
+          e.stopPropagation(); // 이벤트 전파 막음 -> 버튼 클릭 시 윈도우도 클릭됨!
+        };
+      }
+      const myheader = new Header();
+      // event와 eventhandeler 연결
+      window.addEventListener("click", myheader.changeColor);
+      document
+        .getElementById("btn1")
+        .addEventListener("click", myheader.changeColor);
+
+      // 7. Array: map method로 값을 변형해 return
+      const myArray = ["apple", "banana", "orange"];
+      const myList = myArray.map(
+        (item, idx) => "<p>" + idx + " - " + item + "</p>"
+      );
+      console.log(myList);
+      document.getElementById("here").innerHTML = myList
+        .join() // Adds all the elements of an array into a string, separated by the specified separator string.
+        .replaceAll(",", "");
+
+      // 8. destructing array: 배열을 구조화
+      const arr = ["BMW520", "포터2", "Discovery"];
+      // old way
+      const car = arr[0];
+      const truck = arr[1];
+      const suv = arr[2];
+      //
+      const [car2, truck2, suv2] = arr; // 각 변수에 배열의 각 element가 들어감 -> car2: BMW, truck2: 포터
+      console.log(car2, truck2, suv2);
+      const [add, subtract, multiply, divide] = calculate(10, 3);
+      console.log(add, subtract, multiply, divide);
+      function calculate(a, b) {
+        const add = a + b;
+        const subtract = a - b;
+        const multiply = a * b;
+        const divide = a / b;
+        return [add, subtract, multiply, divide];
+      }
+
+      // 9. destructing object: 객체를 구조화
+      const obj = {
+        brand: "Ford",
+        model: "Mustang",
+        type: "car",
+        year: 2021,
+        color: "red",
+        registration: { city: "Houston", state: "Texas", country: "USA" },
+      };
+      // 원래 쓰는 방법
+      myCarInfo(obj);
+      function myCarInfo(car) {
+        const message =
+          "My " +
+          car.type +
+          " is a " +
+          car.color +
+          " " +
+          car.brand +
+          " " +
+          car.model +
+          "." +
+          " *** " +
+          car.registration.city;
+        document.getElementById("here").innerHTML = message;
+      }
+      // 구조화 한 방법
+      myCarInfo2(obj);
+      function myCarInfo2({ model: mm, registration: { state }, brand }) {
+        // 중괄호로 값 추출 -> model을 mm이라는 이름으로 사용(콜론 없으면 변수명 그대로 model로 씀)
+        const message =
+          brand + " My " + mm + " is registered in " + state + ".";
+        document.getElementById("here").innerHTML += "<br>" + message;
+      }
+
+      // 10. 스프레드 연산자: 배열과 object에 적용해보기
+      const numbersOne = [1, 2, 3];
+      const numbersTwo = [4, 5, 6];
+      const numbersCombined = [...numbersOne, ...numbersTwo]; // 각 원소를 풀어 넣음
+      console.log(numbersCombined);
+      const numbers = [1, 2, 3, 4, 5, 6];
+      const [one, two, ...rest] = numbers; // 나머지는 배열로 rest에 들어감
+      console.log(one, two, rest);
+
+      const v1 = { brand: "Ford", model: "Mustang", color: "red" };
+      const v2 = { type: "car", year: 2021, color: "yellow" };
+      const myUpdatedCars = { ...v1, ...v2 };
+      console.log(v1);
+      console.log(v2);
+      console.log(myUpdatedCars);
+    </script>
+  </body>
+</html>
