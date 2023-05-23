@@ -5,7 +5,6 @@
 
 thead {
   background-color: LavenderBlush;
-  border: 1px solid LightPink;
 }
 
 td,
@@ -21,4 +20,3 @@ th {
 .oddStyle {
   background-color: LightYellow;
 }
-

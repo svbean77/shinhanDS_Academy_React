@@ -1,6 +1,8 @@
 // webboard 여러 건 table로 보여주기
 import React from "react";
 import "components1/boardStyle.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function WebBoardList(props) {
   const arr = [
@@ -31,6 +33,14 @@ function WebBoardList(props) {
         </thead>
         <tbody>{arrRow}</tbody>
       </table>
+      <Button variant="outline-primary">Primary</Button>{" "}
+      <Button variant="outline-secondary">Secondary</Button>{" "}
+      <Button variant="outline-success">Success</Button>{" "}
+      <Button variant="outline-warning">Warning</Button>{" "}
+      <Button variant="outline-danger">Danger</Button>{" "}
+      <Button variant="outline-info">Info</Button>{" "}
+      <Button variant="outline-light">Light</Button>{" "}
+      <Button variant="outline-dark">Dark</Button>
     </div>
   );
 }

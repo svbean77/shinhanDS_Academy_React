@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "index.css";
-import App from "components1/WebBoardList"; // 뒤에 확장자가 없으면 javascript
+import App from "App5"; // 뒤에 확장자가 없으면 javascript
 import reportWebVitals from "reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// index.js에 여러 개의 컴포넌트가 랜더링되는 것은 좋은 방법이 아님 -> App에 넣기로
 root.render(
   // <React.StrictMode>
   <App />
