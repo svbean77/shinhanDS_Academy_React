@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "index.css";
-import App from "App6"; // 뒤에 확장자가 없으면 javascript
+import App from "App7"; // 뒤에 확장자가 없으면 javascript
 import reportWebVitals from "reportWebVitals";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
